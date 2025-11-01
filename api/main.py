@@ -26,8 +26,8 @@ if os.path.isdir(static_dir):
 def proxy_greensleeves():
     # Try multiple remote artwork URLs (some CDNs block hotlinking). If all fail, serve local SVG fallback.
     remote_candidates = [
-        'https://i.discogs.com/ohvwxSWBL23kxtxOGe6V8kQjC8E2X3VXgTwU8RiW5FI/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc1NDk3/MTEtMTQ2MzQwMjgy/Mi01NjM3LmpwZWc.jpeg',
-        'https://i.discogs.com/dJCE6zUBGoc1ZBsQ0Y9Vj5PMpVuQBH3cuUTKSKYvfDk/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTc1/NDk3MTEtMTQ2MzQw/MjgyMi01NjM3Lmpw/ZWc.jpeg'
+        'https://i.discogs.com/ZW3747zYHDLwIK6TiKIeH7tKuVdvLNBJpP4-s0UF9-0/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWltYWdlcy9SLTc1/NDk3MTEtMTQ2MzQw/MjgyMi01NjM3Lmpw/ZWc.jpeg',
+        'https://i.discogs.com/aqEJ0puOzI4bzdGABFMGnUNs2HKtQUFECo0NOWlNZiU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc1NDk3/MTEtMTQ2MzQwMjgy/Mi01NjM3LmpwZWc.jpeg'
     ]
     # stream the first successful remote image candidate without saving to disk (no permanent hosting)
     for url in remote_candidates:

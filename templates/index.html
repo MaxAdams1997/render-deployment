@@ -225,15 +225,11 @@
                 btn.id = 'floating-contact';
                 btn.href = '/contact';
                 btn.textContent = 'CONTACT';
-                btn.className = 'fixed bg-black text-white rounded shadow-lg hover:bg-white hover:text-black transition-colors duration-150';
+                btn.className = 'fixed bg-black text-white px-4 py-2 shadow-lg hover:bg-white hover:text-black transition-colors duration-150';
                 btn.style.zIndex = '1000';
                 btn.style.right = '0';
                 btn.style.bottom = '0';
-                btn.style.width = '60px';
-                btn.style.height = '60px';
-                btn.style.display = 'flex';
-                btn.style.alignItems = 'center';
-                btn.style.justifyContent = 'center';
+                btn.style.borderRadius = '0';
                 document.body.appendChild(btn);
             })();
 
