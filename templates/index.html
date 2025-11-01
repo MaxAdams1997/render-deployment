@@ -58,9 +58,14 @@
                         img.style.height = '100%';
                         img.style.objectFit = 'cover';
                         img.style.transition = 'filter 220ms ease';
-                        // try serving from local static (best-effort). This does not touch the DB.
-                        img.src = '/static/images/greensleeves.svg';
+                        // try server-side proxy first (avoids CORS/hotlinking issues), then static SVG, then embedded SVG
+                        img.src = '/static/proxy/greensleeves';
                         img.onerror = function() {
+                            // try the local static SVG
+                            if (img.src !== '/static/images/greensleeves.svg') {
+                                img.src = '/static/images/greensleeves.svg';
+                                return;
+                            }
                             // fallback to embedded SVG data-uri
                             const svgCover = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">'
                                 + '<rect width="100%" height="100%" fill="#0b0b0b"/>'
@@ -211,6 +216,19 @@
                     }
                 }
             }
+
+            // Floating CONTACT button (fixed bottom-right)
+            (function addContactButton(){
+                const existing = document.getElementById('floating-contact');
+                if (existing) return;
+                const btn = document.createElement('a');
+                btn.id = 'floating-contact';
+                btn.href = '/contact';
+                btn.textContent = 'CONTACT';
+                btn.className = 'fixed bottom-6 right-6 bg-black text-white px-4 py-2 rounded shadow-lg hover:bg-white hover:text-black transition-colors duration-150';
+                btn.style.zIndex = '1000';
+                document.body.appendChild(btn);
+            })();
 
             // Recompute on load and resize
             window.addEventListener('load', computeAndFill);
