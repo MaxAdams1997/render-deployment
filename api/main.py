@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 import urllib.request
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
@@ -29,22 +29,25 @@ def proxy_greensleeves():
         'https://images.discogs.com/1QwQvQwQvQwQvQwQvQwQvQwQvQw=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-7549711-1463402822-5637.jpeg.jpg',
         'https://img.discogs.com/SW1hZ2U6MjAzNjgwMzI=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-7549711-1463402822-5637.jpeg.jpg'
     ]
-    cache_dir = os.path.join(static_dir, 'cache')
-    os.makedirs(cache_dir, exist_ok=True)
-    cache_file = os.path.join(cache_dir, 'greensleeves.jpg')
-    # if cache exists return it immediately
-    if os.path.exists(cache_file):
-        return FileResponse(cache_file, media_type='image/jpeg')
-
+    # stream the first successful remote image candidate without saving to disk (no permanent hosting)
     for url in remote_candidates:
         try:
-            # fetch with timeout
-            with urllib.request.urlopen(url, timeout=6) as resp:
-                if resp.status == 200:
-                    # write to cache
-                    with open(cache_file, 'wb') as fh:
-                        fh.write(resp.read())
-                    return FileResponse(cache_file, media_type='image/jpeg')
+            resp = urllib.request.urlopen(url, timeout=6)
+            if resp.status == 200:
+                content_type = resp.getheader('Content-Type') or 'image/jpeg'
+                def iter_stream():
+                    try:
+                        while True:
+                            chunk = resp.read(8192)
+                            if not chunk:
+                                break
+                            yield chunk
+                    finally:
+                        try:
+                            resp.close()
+                        except Exception:
+                            pass
+                return StreamingResponse(iter_stream(), media_type=content_type)
         except Exception:
             continue
 
@@ -52,7 +55,7 @@ def proxy_greensleeves():
     fallback = os.path.join(static_dir, 'images', 'greensleeves.svg')
     if os.path.exists(fallback):
         return FileResponse(fallback, media_type='image/svg+xml')
-    # final fallback: return 404-like response but still point to fallback path
+    # final fallback: return the svg path (even if missing)
     return FileResponse(fallback, media_type='image/svg+xml')
 
 templates = Jinja2Templates(directory="templates")

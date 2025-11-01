@@ -156,7 +156,7 @@
                             ribbon.style.right = '-36px';
                             ribbon.style.background = '#dc2626';
                             ribbon.style.color = 'white';
-                            ribbon.style.padding = '4px 48px';
+                            ribbon.style.padding = '4px 44px';
                             ribbon.style.transform = 'rotate(45deg)';
                             ribbon.style.fontWeight = '700';
                             ribbon.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
@@ -225,8 +225,10 @@
                 btn.id = 'floating-contact';
                 btn.href = '/contact';
                 btn.textContent = 'CONTACT';
-                btn.className = 'fixed bottom-6 right-6 bg-black text-white px-4 py-2 rounded shadow-lg hover:bg-white hover:text-black transition-colors duration-150';
+                btn.className = 'fixed bg-black text-white px-4 py-2 rounded shadow-lg hover:bg-white hover:text-black transition-colors duration-150';
                 btn.style.zIndex = '1000';
+                btn.style.right = '0';
+                btn.style.bottom = '0';
                 document.body.appendChild(btn);
             })();
 
