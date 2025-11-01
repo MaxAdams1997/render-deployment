@@ -32,4 +32,9 @@ def register_page(request: Request):
 def signin_page(request: Request):
     return templates.TemplateResponse("signin.html", {"request": request})
 
+
+@app.get("/contact", response_class=HTMLResponse)
+def contact_page(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
 register_routes(app)

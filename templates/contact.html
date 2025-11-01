@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive — Contact</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white min-h-screen">
+    <header class="bg-black text-white" style="height:42px;">
+        <div class="container mx-auto h-full flex items-center justify-between px-4">
+            <div class="flex items-center">
+                <a href="/" class="text-sm font-semibold px-3 py-1 border border-white rounded">ARCHIVE</a>
+            </div>
+            <div class="flex items-center">
+                <a href="/register" class="text-sm font-semibold px-3 py-1 border border-white rounded ml-2">REGISTER</a>
+                <a href="/signin" class="text-sm font-semibold px-3 py-1 border border-white rounded ml-2">ACCOUNT</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-16">
+        <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
+            <h1 class="text-2xl font-bold mb-8">Contact Us</h1>
+            <form class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium mb-2">NAME</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-black">
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-2">EMAIL</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-black">
+                </div>
+                
+                <div>
+                    <label for="message" class="block text-sm font-medium mb-2">MESSAGE</label>
+                    <textarea id="message" name="message" rows="6" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-black"></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+                    SEND
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -28,6 +28,11 @@
         </div>
     </main>
 
+    <!-- Floating Contact Button -->
+    <a href="/contact" class="fixed bottom-6 right-6 bg-black text-white px-4 py-2 rounded shadow-lg hover:bg-gray-800 transition-colors z-50">
+        CONTACT
+    </a>
+
     <script>
         (function() {
             const container = document.getElementById('tiles');
@@ -46,8 +51,8 @@
 
                 // Tile width is container width / cols
                 const tileWidth = containerRect.width / cols;
-                // Number of rows needed to fill vertically
-                const rows = Math.ceil(availableHeight / tileWidth);
+                // Number of rows needed to fill vertically, plus two extra rows for scrolling
+                const rows = Math.ceil(availableHeight / tileWidth) + 2;
 
                 const total = rows * cols;
 
