@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
 from fastapi.responses import HTMLResponse
@@ -11,6 +12,12 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
 configure_middleware(app)
+
+# Mount static directory for images/css/js. Uses path relative to this file (src/api) -> src/static
+import os
+static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
+if os.path.isdir(static_dir):
+    app.mount('/static', StaticFiles(directory=static_dir), name='static')
 
 templates = Jinja2Templates(directory="templates")
 

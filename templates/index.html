@@ -12,11 +12,11 @@
     <header class="bg-black text-white" style="height:42px;">
         <div class="max-w-7xl mx-auto h-full flex items-center justify-between">
             <div class="flex items-center h-full">
-                <a href="/" class="h-full flex items-center px-6 bg-white text-black font-semibold transition-colors duration-150 hover:bg-yellow-300 hover:text-black">ARCHIVE</a>
+                <a href="/" class="h-full flex items-center px-6 bg-white text-black font-semibold transition-colors duration-150 hover:bg-black hover:text-white">ARCHIVE</a>
             </div>
             <div class="flex items-center h-full">
-                <a href="/register" class="h-full flex items-center px-6 bg-white text-black font-semibold transition-colors duration-150 hover:bg-yellow-300 hover:text-black">REGISTER</a>
-                <a href="/signin" class="h-full flex items-center px-6 bg-white text-black font-semibold border-l border-black transition-colors duration-150 hover:bg-yellow-300 hover:text-black">ACCOUNT</a>
+                <a href="/register" class="h-full flex items-center px-6 bg-white text-black font-semibold transition-colors duration-150 hover:bg-black hover:text-white">REGISTER</a>
+                <a href="/signin" class="h-full flex items-center px-6 bg-white text-black font-semibold border-l border-black transition-colors duration-150 hover:bg-black hover:text-white">ACCOUNT</a>
             </div>
         </div>
     </header>
@@ -51,22 +51,25 @@
                         tile.style.alignItems = 'center';
                         tile.style.justifyContent = 'center';
 
-                        // Album image with robust fallback
+                        // Album image: try local static SVG first (no DB). If it fails, fall back to embedded SVG.
                         const img = document.createElement('img');
-                        img.src = 'https://images.discogs.com/1QwQvQwQvQwQvQwQvQwQvQwQvQw=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-7549711-1463402822-5637.jpeg.jpg';
-                        img.alt = 'Greensleeves Sampler';
+                        img.alt = 'Greensleeves Sampler (cover)';
                         img.style.width = '100%';
                         img.style.height = '100%';
                         img.style.objectFit = 'cover';
                         img.style.transition = 'filter 220ms ease';
+                        // try serving from local static (best-effort). This does not touch the DB.
+                        img.src = '/static/images/greensleeves.svg';
                         img.onerror = function() {
-                            if (!img._triedAlt) {
-                                img._triedAlt = true;
-                                img.src = 'https://img.discogs.com/SW1hZ2U6MjAzNjgwMzI=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-7549711-1463402822-5637.jpeg.jpg';
-                                return;
-                            }
+                            // fallback to embedded SVG data-uri
+                            const svgCover = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">'
+                                + '<rect width="100%" height="100%" fill="#0b0b0b"/>'
+                                + '<circle cx="300" cy="240" r="160" fill="#d6d6d6" opacity="0.12"/>'
+                                + '<text x="50%" y="54%" fill="#ffffff" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700" dominant-baseline="middle" text-anchor="middle">Various</text>'
+                                + '<text x="50%" y="64%" fill="#ffffff" font-size="20" font-family="Arial, Helvetica, sans-serif" dominant-baseline="middle" text-anchor="middle">Greensleeves Sampler</text>'
+                                + '</svg>';
+                            img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgCover);
                             img.onerror = null;
-                            img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="100%" height="100%" fill="#222"/><text x="50%" y="50%" fill="#fff" font-size="20" font-family="Arial, Helvetica, sans-serif" dominant-baseline="middle" text-anchor="middle">Greensleeves Sampler</text></svg>');
                         };
                         tile.appendChild(img);
 
@@ -141,7 +144,8 @@
                             content.appendChild(title2);
 
                             const ribbon = document.createElement('div');
-                            ribbon.textContent = 'SALE';
+                            // ribbon left intentionally without visible text
+                            ribbon.textContent = '';
                             ribbon.style.position = 'absolute';
                             ribbon.style.top = '8px';
                             ribbon.style.right = '-36px';
@@ -163,7 +167,8 @@
                             content.appendChild(title2);
 
                             const ribbon = document.createElement('div');
-                            ribbon.textContent = 'SOLD';
+                            // ribbon left intentionally without visible text
+                            ribbon.textContent = '';
                             ribbon.style.position = 'absolute';
                             ribbon.style.top = '8px';
                             ribbon.style.right = '-36px';
