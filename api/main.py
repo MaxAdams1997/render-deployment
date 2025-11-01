@@ -22,4 +22,14 @@ def health_check():
 def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
+@app.get("/register", response_class=HTMLResponse)
+def register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
+
+@app.get("/signin", response_class=HTMLResponse)
+def signin_page(request: Request):
+    return templates.TemplateResponse("signin.html", {"request": request})
+
 register_routes(app)
