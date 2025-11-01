@@ -63,52 +63,111 @@
                 const total = rows * cols;
 
                 for (let i = 0; i < total; i++) {
-                    const shade = ["#ffffff","#f8f8f8","#e5e5e5","#bfbfbf","#808080","#404040","#000000"][i % 7];
-                    const tile = document.createElement('div');
-                    tile.className = 'group relative overflow-hidden';
-                    tile.style.backgroundColor = shade;
-                    tile.style.aspectRatio = '1 / 1';
-                    tile.style.display = 'flex';
-                    tile.style.alignItems = 'center';
-                    tile.style.justifyContent = 'center';
+                    let tile;
+                    if (i === 0) {
+                        // Greensleeves Sampler tile
+                        tile = document.createElement('div');
+                        tile.className = 'group relative overflow-hidden';
+                        tile.style.backgroundColor = '#222';
+                        tile.style.aspectRatio = '1 / 1';
+                        tile.style.display = 'flex';
+                        tile.style.alignItems = 'center';
+                        tile.style.justifyContent = 'center';
 
-                    const overlay = document.createElement('div');
-                    overlay.className = 'absolute inset-0';
-                    overlay.style.background = 'rgba(0,0,0,0)';
-                    overlay.style.transition = 'background 200ms';
-                    tile.appendChild(overlay);
+                        // Album image
+                        const img = document.createElement('img');
+                        img.src = 'https://img.discogs.com/1QwQvQwQvQwQvQwQvQwQvQwQvQw=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-7549711-1463402822-5637.jpeg.jpg';
+                        img.alt = 'Greensleeves Sampler';
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        tile.appendChild(img);
 
-                    const content = document.createElement('div');
-                    content.className = 'absolute inset-0 flex flex-col items-center justify-center';
-                    content.style.opacity = '0';
-                    content.style.transition = 'opacity 200ms';
-                    content.style.color = 'white';
-
-                    const title = document.createElement('div');
-                    title.textContent = 'RECORD';
-                    title.style.fontWeight = '700';
-                    title.style.fontSize = '1rem';
-                    content.appendChild(title);
-
-                    const btn = document.createElement('button');
-                    btn.textContent = 'INFO';
-                    btn.style.marginTop = '8px';
-                    btn.className = 'bg-white text-black px-3 py-1 rounded';
-                    content.appendChild(btn);
-
-                    tile.appendChild(content);
-
-                    // Hover handlers for non-Tailwind fallback
-                    tile.addEventListener('mouseenter', () => {
-                        overlay.style.background = 'rgba(0,0,0,0.5)';
-                        content.style.opacity = '1';
-                    });
-                    tile.addEventListener('mouseleave', () => {
+                        const overlay = document.createElement('div');
+                        overlay.className = 'absolute inset-0';
                         overlay.style.background = 'rgba(0,0,0,0)';
-                        content.style.opacity = '0';
-                    });
+                        overlay.style.transition = 'background 200ms';
+                        tile.appendChild(overlay);
 
-                    container.appendChild(tile);
+                        const content = document.createElement('div');
+                        content.className = 'absolute inset-0 flex flex-col items-center justify-center';
+                        content.style.opacity = '0';
+                        content.style.transition = 'opacity 200ms';
+                        content.style.color = 'white';
+
+                        const title = document.createElement('div');
+                        title.textContent = 'Various – Greensleeves Sampler';
+                        title.style.fontWeight = '700';
+                        title.style.fontSize = '1rem';
+                        content.appendChild(title);
+
+                        const btn = document.createElement('a');
+                        btn.textContent = 'INFO';
+                        btn.href = 'https://www.discogs.com/release/7549711-Various-Greensleeves-Sampler';
+                        btn.target = '_blank';
+                        btn.style.marginTop = '8px';
+                        btn.className = 'bg-white text-black px-3 py-1 rounded';
+                        content.appendChild(btn);
+
+                        tile.appendChild(content);
+
+                        tile.addEventListener('mouseenter', () => {
+                            overlay.style.background = 'rgba(0,0,0,0.5)';
+                            content.style.opacity = '1';
+                        });
+                        tile.addEventListener('mouseleave', () => {
+                            overlay.style.background = 'rgba(0,0,0,0)';
+                            content.style.opacity = '0';
+                        });
+
+                        container.appendChild(tile);
+                    } else {
+                        const shade = ["#ffffff","#f8f8f8","#e5e5e5","#bfbfbf","#808080","#404040","#000000"][i % 7];
+                        tile = document.createElement('div');
+                        tile.className = 'group relative overflow-hidden';
+                        tile.style.backgroundColor = shade;
+                        tile.style.aspectRatio = '1 / 1';
+                        tile.style.display = 'flex';
+                        tile.style.alignItems = 'center';
+                        tile.style.justifyContent = 'center';
+
+                        const overlay = document.createElement('div');
+                        overlay.className = 'absolute inset-0';
+                        overlay.style.background = 'rgba(0,0,0,0)';
+                        overlay.style.transition = 'background 200ms';
+                        tile.appendChild(overlay);
+
+                        const content = document.createElement('div');
+                        content.className = 'absolute inset-0 flex flex-col items-center justify-center';
+                        content.style.opacity = '0';
+                        content.style.transition = 'opacity 200ms';
+                        content.style.color = 'white';
+
+                        const title = document.createElement('div');
+                        title.textContent = 'RECORD';
+                        title.style.fontWeight = '700';
+                        title.style.fontSize = '1rem';
+                        content.appendChild(title);
+
+                        const btn = document.createElement('button');
+                        btn.textContent = 'INFO';
+                        btn.style.marginTop = '8px';
+                        btn.className = 'bg-white text-black px-3 py-1 rounded';
+                        content.appendChild(btn);
+
+                        tile.appendChild(content);
+
+                        tile.addEventListener('mouseenter', () => {
+                            overlay.style.background = 'rgba(0,0,0,0.5)';
+                            content.style.opacity = '1';
+                        });
+                        tile.addEventListener('mouseleave', () => {
+                            overlay.style.background = 'rgba(0,0,0,0)';
+                            content.style.opacity = '0';
+                        });
+
+                        container.appendChild(tile);
+                    }
                 }
             }
 
