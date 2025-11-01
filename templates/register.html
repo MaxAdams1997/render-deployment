@@ -17,12 +17,28 @@
 
     <main class="container mx-auto py-16">
         <div class="max-w-md mx-auto">
-            <h1 class="text-2xl font-bold mb-4 text-center">Register Now</h1>
-            <form id="register-form" class="space-y-4 bg-white p-6 rounded shadow">
-                <input type="text" name="username" placeholder="Username" required class="border px-2 py-1 rounded w-full">
-                <input type="password" name="password" placeholder="Password" required class="border px-2 py-1 rounded w-full">
-                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded w-full">Register</button>
+        <header class="bg-black text-white" style="height:42px;">
+            <div class="container mx-auto h-full flex items-center justify-between px-4">
+                <div class="flex items-center">
+                    <a href="/" class="text-sm font-semibold px-3 py-1 border border-white rounded">ARCHIVE</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="/register" class="text-sm font-semibold px-3 py-1 border border-white rounded ml-2">REGISTER</a>
+                    <a href="/signin" class="text-sm font-semibold px-3 py-1 border border-white rounded ml-2">ACCOUNT</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="max-w-md mx-auto mt-12 bg-white p-6 rounded shadow">
+            <h2 class="text-2xl font-semibold mb-4">Register</h2>
+            <form method="post" action="/auth/">
+                <label class="block mb-2">Username</label>
+                <input name="username" class="w-full mb-3 border px-2 py-1" />
+                <label class="block mb-2">Password</label>
+                <input name="password" type="password" class="w-full mb-3 border px-2 py-1" />
+                <button class="bg-black text-white px-4 py-2 rounded">Register</button>
             </form>
+        </div>
             <div id="register-error" class="text-red-500 mt-2"></div>
             <p class="text-sm text-center mt-4">Already have an account? <a href="/signin" class="text-blue-600 underline">Sign in</a></p>
         </div>
